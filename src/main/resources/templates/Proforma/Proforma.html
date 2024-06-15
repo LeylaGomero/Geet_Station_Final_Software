@@ -1,0 +1,368 @@
+
+<html >
+    <head>
+
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/styleBody.css"/>-->
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleBody.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleMenu.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/customNavBar.css"/>
+
+
+        <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+	<script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
+
+        <script>
+
+            function BuscarCliente()
+            {
+
+                var bandera = false;
+                var id = document.getElementById("dnicliente").value;
+
+                var campoNombre = document.getElementById("nombrecomletocliente");
+
+
+                var dni = document.getElementsByClassName("dniClienteJS");
+                var nombres = document.getElementsByClassName("nombreClienteJS");
+
+
+                for (i = 0; i < dni.length; i++) {
+
+                    if (id == dni[i].value)
+                    {
+                        bandera = true;
+                        campoNombre.value = nombres[i].value;
+                    }
+                }
+
+                if (!bandera)
+                {
+                    alert("sin datos");
+                    var campoCliente = document.getElementById("dnicliente");
+                    campoNombre.value = "";
+                    campoCliente.value = "";
+                }
+
+            }
+
+            function BuscarProducto()
+            {
+                var bandera = false;
+
+                var id = document.getElementById("id").value;
+
+                var idproducto = document.getElementsByClassName("idProductoJS");
+                var nombre = document.getElementsByClassName("nombreProductoJS");
+                var precio = document.getElementsByClassName("precioProductoJS");
+                var stock = document.getElementsByClassName("stockProductoJS");
+                var estado = document.getElementsByClassName("estadoProductoJS");
+
+                var campoPrecio = document.getElementById("precio");
+                var campoStock = document.getElementById("stock");
+                var campoidProducto = document.getElementById("idProductoCampo");
+                var campoidProforma = document.getElementById("idProformaCampo");
+
+
+                for (x = 0; x < idproducto.length; x++)
+                {
+                    if (id == idproducto[x].value)
+                    {
+                        bandera = true
+                        campoPrecio.value = precio[x].value;
+                        campoStock.value = stock[x].value;
+                        campoidProducto.value = idproducto[x].value;
+                    }
+                }
+
+                if (!bandera)
+                {
+
+                    alert("sin datos");
+                    campoPrecio.value = "";
+                    campoStock.value = "";
+                }
+
+            }
+
+            function validarAgregar()
+            {
+
+                var id = document.getElementById("id");
+                var precio = document.getElementById("precio");
+                var stock = document.getElementById("stock");
+                var cantidad = document.getElementById("cantidad");
+
+
+                if (cantidad.value == "" || id.value == "" || precio.value == "" || stock.value == "")
+                {
+                    document.getElementById("btnAgregar").disabled = true;
+
+                } else
+                {
+                    document.getElementById("btnAgregar").disabled = false;
+                }
+
+
+            }
+
+            function mensajes()
+            {
+                const parametro = document.getElementById("estadomensaje").value;
+                if (parametro == 1)
+                {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Producto existente',
+                    })
+                } else
+                {
+                    if (parametro == 2)
+                    {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Cantidad excede el stock disponible',
+                        })
+                    }
+                }
+            }
+            
+            function descargarProforma(){
+                 var doc = new jsPDF();
+                 const imgURL="data:image/png;base64,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"
+                 var campoNombre = document.getElementById("nombrecomletocliente");
+                // Añadir la imagen al documento
+                doc.addImage(imgURL, "PNG", 10, 10, 30, 30); // X, Y, Ancho, Alto
+                // Añadir texto al documento
+                doc.text("Tu proforma", 10, 60); // X, Y
+                doc.text(`Cliente: ${campoNombre.value}`,10,70);
+                // Generar tabla
+                doc.autoTable({
+                    html: '#tabla',
+                    startY: 80 // Posición vertical de inicio de la tabla
+                });
+                // Descargar el PDF
+                doc.save('table.pdf');
+            }
+            
+            const tabla = document.getElementById("tabla");
+            const btndescargarpdf = document.getElementById("btndescargarpdf");
+            btndescargarpdf.style.display = tabla.rows.length > 0 ? "block" : "none";
+
+            function limpiarTabla() { 
+                const totalNuevo = document.getElementById("total").innerHTML="<label class='form-control' style='padding: 5px;'></label>";
+                 // Obtener la referencia a la tabla 
+                 var tabla = document.getElementById('tabla'); 
+                 // Obtener todas las filas de la tabla 
+                 var filas = tabla.getElementsByTagName('tr'); 
+                 // Iterar sobre cada fila 
+                 for (var i = 0; i < filas.length; i++) { var celdas = filas[i].getElementsByTagName('td'); 
+                 // Iterar sobre cada celda de la fila actual 
+                 for (var j = 0; j < celdas.length; j++) { 
+                 // Limpiar el contenido de la celda 
+                 celdas[j].textContent = ''; 
+                    } 
+                } 
+            }
+                
+
+        </script>
+
+    </head>
+
+    <body onload="mensajes()" >
+        <input   type="hidden" id="estadomensaje" th:value="${estado}">
+
+        <div class="menucss">
+            <div th:insert="Menu :: #menu_principal" ></div>            
+        </div>
+
+        <div class="container-fluid" style="margin-top: 30px">
+            
+            <div style="background-color: #F8F9FA">
+                <center><h1>LISTA DE PROFORMAS</h1></center>
+            <br>
+            <br>
+            </div>
+
+            <div class="row">
+
+                <div class="col-5">
+
+
+                    <div class="card">
+                        <div class="card-body">
+
+
+
+                            <!<!-- Datos Cliente -->
+                            <div class="row">
+                                <label for="dni" >Datos Cliente</label>
+                                <div class="col-4">
+
+
+                                    <tr th:each="cliente : ${clientes}">                          
+                                    <input type="hidden" class="dniClienteJS" th:value="${cliente.dni}"  >
+                                    <input type="hidden" class="nombreClienteJS" th:value="${cliente.nombrecompleto}">
+                                    </tr>
+                                    <form action="/proforma/GuardarProforma" method="POST" id="guardarproforma">
+                                        
+                                        <input name="idusuario" type="hidden" th:value="${usuario.Empleado.dni}">
+                                        
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="dni" id="dnicliente" placeholder="DNI" required="true">  
+                                            <a onclick="BuscarCliente()" id="BuscarCliente" class="btn btn-success" ><i class="bi bi-search"></i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text"  id="nombrecomletocliente"  class="form-control"  readonly="true" Style="background-color: #E4E5DA">
+                                </div>
+                            </div>
+
+
+
+
+                            <!<!-- Datos Producto -->
+
+
+                            <tr th:each="producto : ${productos}">                          
+
+                            <input type="hidden" class="idProductoJS" th:value="${producto.idproducto}">
+                            <input type="hidden" class="nombreProductoJS" th:value="${producto.nombre}">
+                            <input type="hidden" class="precioProductoJS" th:value="${producto.precio}">
+                            <input type="hidden" class="stockProductoJS" th:value="${producto.stock}">
+                            <input type="hidden" class="estadoProductoJS" th:value="${producto.estado}">
+
+                            </tr>
+
+
+                            <div class="row" style="margin-top:  20px">
+
+                                <div class="col-6">
+
+                                    <label for="producto" >Datos Producto</label>
+                                    <div class="input-group">
+                                        <select  type="text" class=" form-control" name="idProducto" id="id"  required="true" onchange="validarAgregar()">  
+                                            <option value="">Seleccione:</option>
+                                            <option th:each="producto : ${productos}" th:value="${producto.idproducto}" th:text="${producto.nombre}"></option>
+                                        </select>
+                                        <button onclick="BuscarProducto()" type="button" class="btn btn-success" ><i class="bi bi-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <label for="precio" >Precio</label >
+                                    <input type="number" class="form-control" id="precio" readonly="true" Style="background-color: #E4E5DA" onchange="validarAgregar()">
+                                </div>
+                                <div class="col-md-4">
+                                    <form action="/proforma/CrearProforma" method="POST" id="AgregarProducto">
+
+                                        <input type="hidden" class="form-control" name="idProducto" id="idProductoCampo" placeholder="Ingrese Nombre" required="required">  
+
+                                        <label for="cantidad" >Cantida</label>
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad" required="true" onchange="validarAgregar()">
+
+                                    </form> 
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="stock" >Stock</label>
+                                    <input class="form-control" id="stock" readonly="true" Style="background-color: #E4E5DA" onchange="validarAgregar()">
+                                </div>
+                                <div class="row" style="margin-top:50px;margin-left: 20px"> 
+                                    <div class="col">
+
+
+
+                                        <button disabled form="AgregarProducto" id="btnAgregar" type="submit" class="btn btn-success" ><i class="bi bi-cart4"></i>Agregar producto</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <table  id="tabla" class="table table-striped">
+
+                        <tr class="table-dark">
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Categoria</th>
+                            <th>Estado</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                        <tr th:each="detalle, status : ${ListaDetalle}">
+
+                            <td th:text="${status.count}"></td>
+                            <td th:text="${detalle.Producto.nombre}"></td>
+                            <td th:text="${detalle.Producto.Categoria.nombre}"></td>
+                            <td th:text="${detalle.Producto.estado}"></td>
+                            <td th:text="${detalle.Producto.precio}"></td>
+                            <td th:text="${detalle.cantidad}"></td>
+
+
+                            <td>
+                                <form action="EliminarDetalle" method="POST"> 
+                                    <input type="hidden" name="codProducto" th:value="${detalle.Producto.idproducto}">
+                                    <button type="submit" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> </button>
+                                </form>
+                            </td>
+                            </div>
+                        </tr>
+
+                    </table>
+
+                    <hr>
+                    <div class="row" style="margin-left: 10px">
+                        <div class="col-md-3" style="">
+                            <button onclick="descargarProforma()" class="btn btn-success" id="btndescargarpdf"><i class="bi bi-patch-check-fill"></i> Descargar Proforma</button>
+                        </div>
+                        <div class="col-md-3" style="">
+                            <button form="guardarproforma"class="btn btn-success" ><i class="bi bi-patch-check-fill"></i> Generar Proforma</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button onclick="limpiarTabla()" class="btn btn-danger"><i class="bi bi-slash-circle-fill"></i> Cancelar</button>
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <label id="total" style="background-color: #ccffcc" class="form-control" th:text="${CostoTotal}+' $'"></label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>    
+
+    </body>
+</html>

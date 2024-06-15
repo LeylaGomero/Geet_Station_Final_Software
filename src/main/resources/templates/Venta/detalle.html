@@ -1,0 +1,69 @@
+<html>
+    <head>
+
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><!-- jQuery -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleBody.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleMenu.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/customNavBar.css"/>   
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+	<script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
+    </head>
+    <body >
+        <div class="menucss">
+            <div th:insert="Menu :: #menu_principal" ></div>            
+        </div>
+
+        <div class="container" style="margin-top: 30px">
+            
+            <div style="background-color: #F8F9FA">
+                            <center><h1>LISTA DE VENTAS</h1></center>
+            <br>
+            <br>
+            </div>
+            <table  class="table table-striped " id="tabla">
+                <tr class="table-dark">
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Estado</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Codigo</th>
+                </tr>
+                <tr th:each="detalle, status : ${detalles}" class="table">
+                    <td th:text="${status.count}"></td>
+                    <td th:text="${detalle.Producto.nombre}"></td>
+                    <td th:text="${detalle.Producto.Categoria.nombre}"></td>
+                    <td th:text="${detalle.Producto.estado}"></td>
+                    <td th:text="${detalle.Producto.precio}"></td>
+                    <td th:text="${detalle.cantidad}"></td>
+                    <td th:text="${detalle.Proforma.idProforma}"></td>
+                    </div>
+                </tr>
+            </table>
+               <div class="d-flex justify-content-end" >
+                    <button id="btn-descargar-registro" onclick="descargarPdf()" class="btn btn-success" style="width: 150px;">
+                       <i class="bi bi-filetype-pdf"></i>
+                       Descargar PDF
+                   </button>
+                </div>     
+            </div>
+            <script>
+                function descargarPdf() {
+  var doc = new jsPDF()
+  doc.text(20, 20, 'Registro de ventas periodo 2023');
+  doc.autoTable({ html: '#tabla' })
+  doc.save('table.pdf')
+              }
+              </script>
+    </body>
+</html>

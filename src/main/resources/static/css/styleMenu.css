@@ -1,0 +1,28 @@
+.menucss{
+    background-color: #547980;
+
+}
+.text
+{
+    color: white;
+    font-size: 20px;
+}
+
+.container-clock {
+    text-align: center;
+
+}
+
+.container-clock h1 {
+    font-size: 15rem;
+    font-weight: 400;
+}
+
+.container-clock p {
+    font-size: 2.5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.dropdown {
+    padding-right: 40px;
+}

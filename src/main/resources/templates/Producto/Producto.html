@@ -1,0 +1,338 @@
+
+<html>
+    <head>
+        <title>Productos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <!-- SweertAlert2 -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleBody.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleMenu.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/customNavBar.css"/>
+
+
+     <script>
+            function Actualizar()
+            {
+                event.preventDefault();
+                const nombre = document.getElementById("nombrem").value;
+                const precio = document.getElementById("preciom").value;
+                const stock = document.getElementById("stockm").value;
+                const estado = document.getElementById("estadom").value;
+                const imagen = document.getElementById("imagenm").value;
+                if (nombre == "" || precio == "" || stock == "" || estado == "" || imagen=="")
+                {
+                    //Puedes aqui poner una alerta: llene los campos
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Complete los campos faltantes!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    });
+                } else
+                {
+                    Swal.fire({
+                        title: 'Quieres guardar los cambios?',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Guardar',
+                        denyButtonText: `No guardar`,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: 'Actualizado!',
+                                text: '',
+                                icon: 'success',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const formulario = document.getElementById("actualizar");
+                                    formulario.submit();
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            Swal.fire('No se guardaron cambios', '', 'info');
+                        }
+                    });
+                }
+            }
+
+
+            function Editar()
+            {
+                const exampleModal = document.getElementById('modalEditar');
+                exampleModal.addEventListener('show.bs.modal', event => {
+
+                    const button = event.relatedTarget;
+
+                    const id = button.getAttribute('data-bs-id');
+                    const idc = button.getAttribute('data-bs-idc');
+                    const nombre = button.getAttribute('data-bs-nombre');
+                    const precio = button.getAttribute('data-bs-precio');
+                    const stock = button.getAttribute('data-bs-stock');
+                    const estado = button.getAttribute('data-bs-estado');
+                    const imagen = button.getAttribute('data-bs-imagen');
+              
+                    const campoId = document.getElementById('idm');
+                    const campoNombre = document.getElementById('nombrem');
+                    const campoPrecio = document.getElementById("preciom");
+                    const campoStock = document.getElementById('stockm');
+                    const campoEstado = document.getElementById('estadom');
+                    const campoCategoria = document.getElementById('categoriam');
+                    const campoImagen = document.getElementById('imagenm');
+                    var imagePreview = document.getElementById('imagePreview');
+                    
+
+                    campoId.value = id;
+                    campoCategoria.value = idc;
+                    campoNombre.value = nombre;
+                    campoPrecio.value = precio;
+                    campoStock.value = stock;
+                    campoEstado.value = estado;
+                    campoImagen.value = imagen;
+					imagePreview.src=imagen
+                });
+
+
+
+            }
+            function Eliminar(opcion) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Se eliminara este registro!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Eliminar!',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            title: 'Eliminado!',
+                            text: 'El registro fue eliminado.',
+                            icon: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = opcion.href;
+                            }
+                        });
+
+                    }
+                });
+            }
+        </script>
+
+    </head>
+    <body onload="Editar()">
+        <div class="menucss">
+            <div th:insert="Menu :: #menu_principal" ></div>            
+        </div>
+        <div class="container-fluid">
+
+            <div class="row" style="margin-top: 30px">
+                
+            <div style="background-color: #F8F9FA">
+                <center><h1>CATALOGO DE PRODUCTOS</h1></center>
+            <br>
+            <br>
+            </div>
+
+                <div class="col-4" style="margin: 10px">
+                    <div class="card">
+                        <div style="background-color: #F8F9FA">
+                            <center><h1>Registrar Producto</h1></center>
+                            <hr>
+                        </div>
+
+                        <form action="/producto/Agregar" method="POST" >
+                            <div class="row" style="margin-left: 23px; margin-right: 23px; margin-bottom: 10px">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese Nombre" required="required">  
+                            </div>
+                            <div class="row" style="margin-left: 10px; margin-right: 10px">
+                                <div class="col-6">
+                                    <label for="categoria" class="form-label">Categoria</label>
+                                    <select type="text" class="form-control" name="categoria" id="categoria"  required="true" >  
+                                        <option value="" >Seleccione</option>
+                                        <option th:each="categoria : ${categorias}" name="categoria" id="categoria"  th:value="${categoria.idcategoria}" th:text="${categoria.nombre}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px">
+                                <div class="col-4" >
+                                    <label for="precio" class="form-label">Precio</label>
+                                    <input type="number" step="any" class="form-control" name="precio" id="precio" placeholder="0.0$"> 
+                                </div>
+                                <div class="col-4" >
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="number" class="form-control" name="stock" id="stock" placeholder="stock" >  
+
+                                </div>
+                                <div class="col-4" >
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <input type="text" class="form-control" name="estado" id="estado" placeholder="estado" >  
+                                </div>
+                                <div class="col-12" >
+                                    <label for="imagen" class="form-label">Enlace de imagen:</label>
+                                    <input type="text" class="form-control" name="imagen" id="imagen" placeholder="Pegar imagen" >  
+                                </div>
+                            </div>         
+                            <div class="row justify-content-center" style="margin-top:20px">
+                                <button type="submit" class="btn btn-success" style="height: 45px; width: 140px">Agregar</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <table  class="table table-striped">
+                        <tr class="table-dark">
+                            <th  style="max-width:15px" >#</th>
+                            <th style="-max-width:150px">Nombre</th>
+                            <th style="-max-width:15px">Precio</th>
+                            <th style="-max-width:15px">Stock</th>
+                            <th style="-max-width:100px">Categoria</th>
+                            <th style="-max-width:15px">Estado</th>
+                            <th style="-max-width:15px">Imagen</th>
+                            <th style="-max-width:15px">Acciones</th>
+                        </tr>
+                        <tr th:each="producto, status : ${productos}">
+                            <td  style="-max-width:15px" th:text="${status.count}"></td>
+                            <td style="-max-width:150px" th:text="${producto.nombre}"></td>
+                            <td style="-max-width:15px" th:text="${producto.precio}"></td>
+                            <td style="-max-width:15px" th:text="${producto.stock}"></td>
+                            <td style="-max-width:100px" th:text="${producto.categoria.nombre}"></td>
+                            <td style="-max-width:15px" th:text="${producto.estado}"></td>
+                            <td>  
+                                <div clase="center">
+                                    <img
+										id="imagen_listado"
+                                        class="float-right rounded img-thumbnail"
+                                        th:src="${producto.imagen}"
+                                        style="max-width: 100px;height: 6rem;">
+                                </div> 
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <div style="margin: 0 0.5rem 0 0;">
+                                        <button type="button" class="btn btn-success" 
+                                                data-bs-toggle="modal" data-bs-target="#modalEditar" 
+                                                th:attr="
+                                                data-bs-id=${producto.idproducto},
+                                                data-bs-idc=${producto.categoria.idcategoria},
+                                                data-bs-nombre=${producto.nombre},
+                                                data-bs-precio=${producto.precio},
+                                                data-bs-stock=${producto.stock},
+                                                data-bs-estado=${producto.estado},
+                                                data-bs-imagen=${producto.imagen}">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </div>
+                                    <form>
+                                        <a onclick="return Eliminar(this)" th:href="@{Eliminar(id=${producto.idproducto})}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                    </form>
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== -->
+        <!-- Model EDITAR/ACTUALIZAR -->
+   <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="/producto/actualizar" method="POST" id="actualizar">
+                            <input type="hidden" name="id" id="idm">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label for="nomx" class="col-form-label">Nombre:</label>
+                                    <input type="text" name="nombre" id="nombrem" class="form-control" placeholder="Ingrese nombre" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoriam" class="col-form-label">Categoria:</label>
+                                    <select type="text" class="form-control" name="categoria" id="categoriam"  required="true">  
+                                        <option th:each="categoria : ${categorias}" th:value="${categoria.idcategoria}" th:text="${categoria.nombre}"></option>
+                                    </select>
+                                </div>
+								<div class="mb-3">
+                                    <label for="imagenm" class="col-form-label">Url Imagen:</label>
+ 									<input type="text" name="imagen" id="imagenm" class="form-control" placeholder="Ingrese nombre" crossorigin="anonymous">                                 
+								</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="mb-3" style="margin-top: 10px">
+                                        <label for="precx" class="col-form-label">Precio:</label>
+                                        <input type="number" step="any" name="precio" id="preciom" class="form-control" placeholder="Ingrese precio" >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="stockm" class="col-form-label">Stock:</label>
+                                        <input type="number" name="stock" id="stockm" class="form-control" placeholder="Ingrese precio" >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="estadom" class="col-form-label">Estado:</label>
+                                        <input type="text" name="estado" id="estadom" class="form-control" placeholder="Ingrese nombre" >
+                                    </div>
+                                </div>  
+
+                                <div class="col">
+                                    <div class="row d-flex justify-content-center" style="margin-top: 30px">
+                                        <img id="imagePreview" 
+                                             class="float-right rounded img-thumbnail"
+                                             style="max-width: 80%">
+                                    </div> 
+
+                                    <div class="row d-flex justify-content-center" style="margin-top: 15px">
+                                        <div class="card" style="max-width: 160px; background-color: #f55d3e; text-align: center">
+                                            <input id="imagenm" type="text" style="display: none" name="imagen"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="return Actualizar()" type="button" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+

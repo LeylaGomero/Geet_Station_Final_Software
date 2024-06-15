@@ -1,0 +1,13 @@
+.contenedor-principal{
+    background-color: white;
+}
+.item{
+    background-color:white;
+    box-shadow: 5px 5px 5px #f2f2f2;
+    border-radius: 1rem;
+    transition: 0.2s ease-in-out
+}
+.item:hover{
+    background-color:#b0dfff;
+ 
+}

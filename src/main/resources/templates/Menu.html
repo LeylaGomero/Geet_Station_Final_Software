@@ -1,0 +1,124 @@
+<div id="menu_principal" class="contenedor-principal">
+    <nav class="navbar navbar-expand-lg py-4">
+        <div class="container-fluid"  >
+            <a class="navbar-brand item px-4 py-2 rounded-lg" th:href="@{/principal/}">
+                <div class="color-texto">
+                    <span>Home</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon t"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex gap-2" th:if="${usuario.Empleado.puesto.idpuesto==1}">
+                    <li class="nav-item  ">
+                        <a class="nav-link item px-4 py-3" aria-current="page" th:href="@{/producto/}">
+                            <div class="text-dark">            
+                             Productos
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link item px-4 py-3" th:href="@{/cliente/}">
+                         <div class="text-dark">
+                                Clientes
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link item px-4 py-3" th:href="@{/empleado/}">
+                       <div class="text-dark">
+                                Empleados
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link item px-4 py-3" th:href="@{/proforma/}">
+                          <div class="text-dark">                         
+                                 Proforma
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link item px-4 py-3" th:href="@{/ventas/}">
+                         <div class="text-dark">
+                                 Venta
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link item px-4 py-3" th:href="@{/comprobantes/}">
+                         <div class="text-dark">
+                                 Comprobante
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex gap-2" th:if="${usuario.Empleado.puesto.idpuesto==2}">
+                    <li class="nav-item  ">
+                        <a class="nav-link item px-4 py-3" aria-current="page" th:href="@{/producto/}">
+                            <div class="text-dark">            
+                             Productos
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link item px-4 py-3" th:href="@{/cliente/}">
+                         <div class="text-dark">
+                                Clientes
+                            </div>
+                        </a>
+                    </li>
+         
+                    <li class="nav-item ">
+                        <a class="nav-link item px-4 py-3" th:href="@{/proforma/}">
+                          <div class="text-dark">                         
+                                 Proforma
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex gap-2" th:if="${usuario.Empleado.puesto.idpuesto==3}">
+                    <li class="nav-item  ">
+                        <a class="nav-link item px-4 py-3" aria-current="page" th:href="@{/producto/}">
+                            <div class="text-dark">            
+                             Productos
+                            </div>
+                        </a>
+                    </li>
+   
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex gap-2" th:if="${usuario.Empleado.puesto.idpuesto==4}">
+                    <li class="nav-item">
+                        <a class="nav-link item px-4 py-3" th:href="@{/ventas/}">
+                         <div class="text-dark">
+                                 Venta
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link item px-4 py-3" th:href="@{/comprobantes/}">
+                         <div class="text-dark">
+                                 Comprobante
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav  mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://localhost:9090/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                            
+                            <label type="text"th:text="${usuario.Empleado.nombre}"></label>
+                            <input  type="hidden"th:value="${usuario.idusuario}">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="http://localhost:9090/">Cerrar sesion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
