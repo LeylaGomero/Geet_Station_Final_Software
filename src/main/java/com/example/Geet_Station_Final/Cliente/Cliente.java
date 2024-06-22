@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
+//Es un comentario de prueba que no debería afectar en el uso del código, de lo contrario me destierran del grupo
+
 @Data
 @Entity
 @Table(name = "cliente")
