@@ -17,10 +17,11 @@ import lombok.Data;
 @Entity
 @Table(name = "producto")
 public class Producto {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idproducto;
+    // Campos que representan las propiedades del producto
     private String nombre;
     private float precio;
     private int stock;
