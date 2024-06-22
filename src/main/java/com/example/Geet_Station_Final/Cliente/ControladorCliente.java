@@ -38,12 +38,12 @@ public class ControladorCliente {
 
     @GetMapping("/")
     public String Listar(Model model) {
-
+    // Crear una nueva instancia de Cliente y establecer valores iniciales
         Cliente c = new Cliente();
         c.setApellido("");
         c.setDni(0);
         c.setNombre("");
-
+    // Incrementar el estado
         estado = estado+1;
         List<Cliente> clientes = serviceCliente.Listar();
 
