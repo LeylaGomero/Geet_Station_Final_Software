@@ -29,15 +29,19 @@ public class ControladorPrincipal {
 
     @GetMapping("/")
     public String Listar(Model model) {
+        // Obtiene la lista de productos desde el servicio
         List<Producto> productos = serviceProducto.Listar();
+        // Obtiene la lista de categorías desde el servicio
         List<Categoria> categorias = serviceCategoria.Listar();
-
         Usuario usuario =new Usuario();
+        // Obtiene la lista de usuarios desde el servicio
         List<Usuario> Listausuario = serviceUsuario.Listar();
+        // Recorre la lista de usuarios para encontrar el usuario con ID 1
         for(int x=0;x<Listausuario.size();x++)
         {
             if(Listausuario.get(x).getIdusuario() == 1)
             {
+                // Establece los detalles del usuario encontrado en la instancia de usuario
                 usuario.setIdusuario(Listausuario.get(x).getIdusuario());
                 usuario.setEmpleado(Listausuario.get(x).getEmpleado());
                 break;
