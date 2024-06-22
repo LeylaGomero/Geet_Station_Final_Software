@@ -203,4 +203,27 @@ public class ControladorCliente {
 
         return Listar(model);
     }
+
+    //Este es un comentario en el controlador de cliente y es lo que se está agregando (se agregó 2do cambio)
+    /*@GetMapping("/buscar")
+      public String Buscar(
+        @RequestParam("dni") int dni,
+        Model model) {
+    // Busca el cliente en la base de datos
+    Cliente c = serviceCliente.buscarPorDni(dni);
+
+    // Si el cliente es encontrado, agregarlo al modelo
+    if (c != null) {
+        model.addAttribute("cliente", c);
+    } else {
+        // Si no se encuentra el cliente, agregar un mensaje de error al modelo
+        model.addAttribute("error", "Cliente no encontrado");
+    }
+
+    // Retorna la vista adecuada (por ejemplo, una página de detalles del cliente)
+    return "detalleCliente";
+}*/
+
+
+    
 }
