@@ -62,4 +62,28 @@ public class ControladorIniciarSecion {
 
         return inicio(model);
     }
+
+/*Este comentario sirve para delimitar desde donde se está agregando hasta donde queda*/
+@GetMapping("/recuperar-contrasena")
+    public String mostrarRecuperarContrasena() {
+        return carpeta + "RecuperarContrasena"; // Crear una vista para recuperación de contraseña
+    }
+
+    @PostMapping("/recuperar-contrasena")
+    public String recuperarContrasena(@RequestParam("email") String email, Model model) {
+        Empleado empleado = serviceEmpleado.findByEmail(email);
+        if (empleado != null) {
+            // Lógica para enviar correo electrónico con la contraseña o un enlace para restablecerla.
+            // Esto es solo un ejemplo y deberías implementar un servicio de correo real.
+            String nuevaContrasena = "nuevaContrasenaGenerada"; // Generar una nueva contraseña o un token
+            empleado.setPassword(nuevaContrasena);
+            serviceEmpleado.guardar(empleado);
+            model.addAttribute("mensaje", "Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña.");
+        } else {
+            model.addAttribute("error", "El correo electrónico no está registrado.");
+        }
+        return carpeta + "RecuperarContrasena";
+    }
+
+    
 }
