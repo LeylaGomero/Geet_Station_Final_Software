@@ -63,7 +63,7 @@ public class ControladorIniciarSecion {
         return inicio(model);
     }
 
-/*Este comentario sirve para delimitar desde donde se está agregando hasta donde queda*/
+/*Este comentario sirve para delimitar desde donde se está agregando hasta el fin*/
 @GetMapping("/recuperar-contrasena")
     public String mostrarRecuperarContrasena() {
         return carpeta + "RecuperarContrasena"; // Crear una vista para recuperación de contraseña
