@@ -11,13 +11,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <!-- SweertAlert2 -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleBody.css"/>
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleMenu.css"/>
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/customNavBar.css"/>
 
-        <!<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
         <script>
 
@@ -137,6 +137,25 @@
                     }
                 });
             }
+
+
+function descargarExcel() {
+            const rows = document.querySelectorAll("table tr");
+            let data = [];
+            rows.forEach((row, index) => {
+                const cols = row.querySelectorAll("th, td");
+                let rowData = [];
+                cols.forEach(col => {
+                    rowData.push(col.innerText);
+                });
+                data.push(rowData);
+            });
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Empleados");
+            XLSX.writeFile(workbook, "empleados.xlsx");
+        }
+            
         </script>
 
 
@@ -293,7 +312,11 @@
 
                         </tr>
                     </table>
-
+                    
+                 <div class="text-center mb-3">
+                <button class="btn btn-primary" onclick="descargarExcel()">Exportar</button>
+                </div>
+                    
                 </div>             
 
             </div>
