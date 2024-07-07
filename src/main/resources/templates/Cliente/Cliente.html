@@ -17,11 +17,12 @@
         <!-- SheetJS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
+
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleBody.css"/>
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/styleMenu.css"/>
         <link rel="stylesheet" type="text/css" href="http://localhost:9090/css/customNavBar.css"/>
 
-        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <!<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
         <script type="text/javascript">
 
@@ -129,8 +130,8 @@
                     }
                 });
             }
-
-         function descargarExcel() {
+            
+        function descargarExcel() {
             const rows = document.querySelectorAll("table tr");
             let data = [];
 
@@ -149,6 +150,9 @@
 
             XLSX.writeFile(workbook, "clientes.xlsx");
         }
+
+
+
             
         </script>
 
@@ -276,9 +280,12 @@
 
                         </tr>
                     </table>
-                  <div class="text-center mb-3">
+
+                 <div class="text-center mb-3">
                 <button class="btn btn-primary" onclick="descargarExcel()">Exportar</button>
                 </div>
+                    
+
                 </div>
 
             </div>
@@ -356,5 +363,3 @@
 
     </body>
 </html>
-
-
