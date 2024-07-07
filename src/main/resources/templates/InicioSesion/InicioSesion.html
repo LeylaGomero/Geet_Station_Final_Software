@@ -1,4 +1,4 @@
-
+<!--
 <html>
     <head>
 
@@ -8,6 +8,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <!-- JavaScript Bundle with Popper -->
+<!--
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
         <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
@@ -73,7 +74,7 @@
                         </form>
 
                     <!-- En este DIV, se incluye el nuevo botón llamado recuperar contraseña, con su referencia
-                        al nuevo HTML llamado /recuperar-contrasena-->
+                        al nuevo HTML llamado /recuperar-contrasena
                      <div class="col-12 mt-3">
                 <a href="/recuperar-contrasena" class="btn btn-link">Recuperar Contraseña</a>
             </div>
@@ -85,3 +86,127 @@
 
     </body>
 </html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <script>
+        function validar() {
+            var parametro = document.getElementById("parametro").value;
+            if (parametro > 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Credenciales Incorrectos',
+                })
+            }
+        }
+
+        function recuperarContrasena() {
+            Swal.fire({
+                title: 'Ingrese su número celular',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    placeholder: 'Número de celular'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Enviar',
+                showLoaderOnConfirm: true,
+                preConfirm: (numero) => {
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(numero);
+                        }, 1000);
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Se ha enviado su contraseña vía SMS',
+                        text: `Al número móvil: ${result.value}`,
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="validar()" style="background-image: url(https://mejoreslaptops.com/wp-content/uploads/2018/11/mejores-latops-800x445.jpg);">
+
+    <input type="hidden" th:value="${parametro}" id="parametro">
+    <div class="container d-flex justify-content-center ">
+        <div class="border" style="margin-top: 30px; background-color:#ffffff; height:600px; width: 450px; padding: 30px;"> 
+            <div class="row">
+                <center><h1 style="padding-top: 10px">INICIAR SESION</h1></center>
+            </div>
+
+            <div class="row">
+                <center><img style="width: 20%" src="logo.png"></center>
+            </div>
+
+            <div class="row">
+                <center><h6 style="padding: 10px"> Bienvenido al Sistema</h6></center>
+                <form action="validar" method="POST">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg> Usuario</label>
+                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingrese Usuario">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                            </svg>Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Ingrese Contraseña">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+                </form>
+                <div class="col-12 mt-3">
+                    <button onclick="recuperarContrasena()" class="btn btn-info" style="background-color: #17a2b8; color: white;">Recuperar Contraseña</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
